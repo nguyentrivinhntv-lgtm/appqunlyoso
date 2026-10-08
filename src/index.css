@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+}
+
+/* Form container font - always Times New Roman */
+.form-container {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+@media print {
+  @page {
+    margin: 10mm;
+  }
+
+  /* Force body to allow full content flow */
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    font-family: 'Times New Roman', Times, serif !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Show React root */
+  body>#root {
+    display: block !important;
+  }
+
+  /* Force all layout containers to flow naturally — but NOT hidden elements */
+  #root:not(.hide-on-print),
+  #root>div:not(.hide-on-print),
+  #root>div>div:not(.hide-on-print),
+  main:not(.hide-on-print),
+  main>*:not(.hide-on-print) {
+    display: block !important;
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    padding-left: 0 !important;
+    position: static !important;
+    width: 100% !important;
+  }
+
+  main {
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  /* Form container: each form = 1 page */
+  .form-container {
+    font-family: 'Times New Roman', Times, serif;
+    padding: 15mm !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    max-width: none !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    background: white !important;
+    display: block !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  .form-container-no-pad {
+    font-family: 'Times New Roman', Times, serif;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    max-width: none !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    background: white !important;
+    display: block !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* Page break after each form */
+  .break-after-page {
+    page-break-after: always !important;
+    break-after: page !important;
+  }
+
+  /* When using Electron API (which supports native landscape), just set width */
+  body.electron-print-mode .print-landscape-wrapper {
+    width: 277mm !important;
+    max-width: 277mm !important;
+    min-width: 0 !important;
+    padding: 10mm !important;
+  }
+
+  body.electron-print-mode .print-landscape-content {
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+  }
+
+  .border-print {
+    border: 1px solid #cbd5e1 !important;
+  }
+
+  /* Clean input fields for print */
+  input {
+    border: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: black !important;
+  }
+
+  input::placeholder {
+    color: transparent;
+  }
+
+  /* Make sure form parent containers flow naturally */
+  .space-y-8,
+  [class*="space-y"] {
+    display: block !important;
+    overflow: visible !important;
+  }
+
+  /* ====== HIDE RULES — LAST so they win on specificity ====== */
+  /* This MUST be at the bottom so it overrides everything above */
+  .hide-on-print,
+  .hide-on-print *,
+  header,
+  nav {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+}
+
+/* ==============================================================
+   PERMANENT UI ROTATION (Landscape Form inside Portrait Container)
+   This makes page 4 always a portrait page with sideways text.
+============================================================== */
+.print-landscape-wrapper {
+  width: 190mm !important;
+  height: 277mm !important;
+  max-width: 190mm !important;
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  background: white !important;
+}
+
+.print-landscape-content {
+  width: 277mm !important;
+  height: 190mm !important;
+  position: absolute !important;
+  transform: rotate(-90deg) !important;
+  transform-origin: top left !important;
+  top: 277mm !important;
+  left: 0 !important;
+  box-sizing: border-box !important;
+  padding: 10mm !important;
+}
+
+/* When using Electron API standalone landscape print, we can override */
+body.electron-print-mode .print-landscape-wrapper {
+  width: 297mm !important;
+  height: 210mm !important;
+  max-width: 297mm !important;
+}
+
+body.electron-print-mode .print-landscape-content {
+  width: 100% !important;
+  height: auto !important;
+  position: static !important;
+  transform: none !important;
+  padding: 10mm !important;
+}
