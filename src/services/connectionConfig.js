@@ -45,6 +45,11 @@ export function getApiBaseUrl() {
   if (config.mode === 'client' && config.serverIP) {
     return `http://${config.serverIP}:${config.serverPort}`;
   }
+  
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    return 'https://appqunlyoso.onrender.com';
+  }
+  
   return `http://localhost:${config.serverPort}`;
 }
 
@@ -58,6 +63,11 @@ export function getHelperUrl() {
   if (config.mode === 'client' && config.serverIP) {
     return `http://${config.serverIP}:${config.helperPort}`;
   }
+  
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    return 'https://appqunlyoso.onrender.com';
+  }
+  
   return `http://localhost:${config.helperPort}`;
 }
 
